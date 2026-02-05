@@ -1,0 +1,26 @@
+﻿@using WebApplication2.Data;
+@model IReadOnlyList<Courses>
+
+<h1>All Courses List</h1>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Duration (Months)</th>
+        <th>Total Fees</th>
+        <th>Created At</th>
+    </tr>
+
+    @foreach (var course in Model)
+    {
+        <tr>
+            <td>@course.CourseID</td>
+            <td>@course.CourseName</td>
+            <td>@course.CourseCode</td>
+            <td>@course.DurationMonths</td>
+            <td>@course.TotalFees</td>
+            <td>@course.CreatedAt.ToShortDateString()</td>
+        </tr>
+    }
+</table>

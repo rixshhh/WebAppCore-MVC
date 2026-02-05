@@ -1,0 +1,29 @@
+﻿@using WebApplication2.Data
+@model IReadOnlyList<StudentsViewModels>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Student ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.StudentID</td>
+                <td>@s.FirstName</td>
+                <td>@s.LastName</td>
+                <td>@s.Gender</td>
+                <td>@s.Email</td>
+                <td>@s.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
