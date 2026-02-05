@@ -8,23 +8,6 @@ namespace WebApplication2.Controllers
 
     public class StudentsController : Controller
     {
-        public IActionResult Index()
-        {
-            AppDbContext DbContext = new();
-            IReadOnlyList<StudentsViewModels> students = DbContext.Students
-                    .Select(s => new StudentsViewModels
-                    {
-                        StudentID = s.StudentID,
-                        FirstName = s.FirstName,
-                        LastName = s.LastName,
-                        Gender = s.Gender,
-                        Email = s.Email,
-                        Address = s.Address
-                    }).ToList();
-
-            return View(students);
-        }
-
 
         //private readonly AppDbContext _data;
 
@@ -33,6 +16,32 @@ namespace WebApplication2.Controllers
         //    _data = data;
         //}
 
+        public IActionResult Index()
+        {
+            AppDbContext DbContext = new();
+            IReadOnlyList<StudentsViewModels> students = DbContext.Students
+                    .Select(s => new StudentsViewModels
+                    {
+                        StudentID = s.StudentID,
+                        RollNumber = s.RollNumber,
+                        FirstName = s.FirstName,
+                        LastName = s.LastName,
+                        DOB = s.DOB,
+                        Gender = s.Gender,
+                        Email = s.Email,
+                        Phone = s.Phone,
+                        Address = s.Address,
+                        AdmissionDate = s.AdmissionDate,
+                        IsActive = s.IsActive,
+                        CreatedAt = s.CreatedAt,
+                        UpdatedAt = s.UpdatedAt
+                    }).ToList();
+
+            return View(students);
+        }
+
+
+      
         [HttpGet]
         public IActionResult Create()
         {
@@ -46,16 +55,23 @@ namespace WebApplication2.Controllers
             {
                 var student = new Students
                 {
-                    StudentID = model.StudentID,
+                    RollNumber = model.RollNumber,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
+                    DOB = model.DOB,
                     Gender = model.Gender,
                     Email = model.Email,
-                    Address = model.Address
+                    Phone = model.Phone,
+                    Address = model.Address,
+                    AdmissionDate = model.AdmissionDate,
+                    IsActive = model.IsActive,
+                    CreatedAt = DateTime.UtcNow.Date,
+                    UpdatedAt = DateTime.UtcNow.Date
                 };
 
-                //_data.Students.Add(student);
-                //_data.SaveChanges();
+                AppDbContext DbContext = new();
+                DbContext.Students.Add(student);
+                DbContext.SaveChanges();
 
                 return RedirectToAction("Index");
             }
