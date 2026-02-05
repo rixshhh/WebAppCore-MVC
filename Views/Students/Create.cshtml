@@ -1,78 +1,95 @@
 ﻿@model WebApplication2.Models.StudentsViewModels
 
-<h2>Add Student</h2>
-
-<form asp-action="Create" method="post" class="needs-validation" novalidate>
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label asp-for="RollNumber" class="form-label"></label>
-            <input asp-for="RollNumber" class="form-control" />
-            <span asp-validation-for="RollNumber" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Add New Student</h3>
         </div>
-        <div class="col-md-6">
-            <label asp-for="FirstName" class="form-label"></label>
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+        <div class="card-body">
+            <form asp-action="Create" method="post" class="needs-validation" novalidate>
+                <!-- Row 1: Roll Number & First Name -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RollNumber" class="form-label">Roll Number</label>
+                        <input asp-for="RollNumber" class="form-control" placeholder="Enter roll number" />
+                        <span asp-validation-for="RollNumber" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FirstName" class="form-label">First Name</label>
+                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Row 2: Last Name & DOB -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="LastName" class="form-label">Last Name</label>
+                        <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="DOB" class="form-label">Date of Birth</label>
+                        <input asp-for="DOB" class="form-control" type="date" />
+                        <span asp-validation-for="DOB" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Row 3: Gender & Email -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Gender" class="form-label">Gender</label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="">Select Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                        <span asp-validation-for="Gender" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" type="email" placeholder="Enter email address" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Row 4: Phone & Admission Date -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Phone" class="form-label">Phone</label>
+                        <input asp-for="Phone" class="form-control" type="tel" placeholder="e.g. +1-234-567-8900" />
+                        <span asp-validation-for="Phone" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AdmissionDate" class="form-label">Admission Date</label>
+                        <input asp-for="AdmissionDate" class="form-control" type="date" />
+                        <span asp-validation-for="AdmissionDate" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <!-- Row 5: Status & Address -->
+                <div class="row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="IsActive" class="form-label">Status</label>
+                        <select asp-for="IsActive" class="form-select">
+                            <option value="">Select Status</option>
+                            <option value="true">Active</option>
+                            <option value="false">Inactive</option>
+                        </select>
+                        <span asp-validation-for="IsActive" class="text-danger small"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Address" class="form-label">Address</label>
+                        <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter full address"></textarea>
+                        <span asp-validation-for="Address" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-success px-4">Save Student</button>
+                    <a asp-action="Index" class="btn btn-secondary px-4 ms-2">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label asp-for="LastName" class="form-label"></label>
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="DOB" class="form-label"></label>
-            <input asp-for="DOB" class="form-control" type="date" />
-            <span asp-validation-for="DOB" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label asp-for="Gender" class="form-label"></label>
-            <select asp-for="Gender" class="form-select">
-                <option value="">Select Gender</option>
-                <option>M</option>
-                <option>F</option>
-            </select>
-            <span asp-validation-for="Gender" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" type="email" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="Phone" class="form-label"></label>
-            <input asp-for="Phone" class="form-control" type="tel" placeholder="Enter phone number" />
-            <span asp-validation-for="Phone" class="text-danger"></span>
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Address" class="form-label"></label>
-        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label asp-for="AdmissionDate" class="form-label"></label>
-            <input asp-for="AdmissionDate" class="form-control" type="date" />
-            <span asp-validation-for="AdmissionDate" class="text-danger"></span>
-        </div>
-        <div class="col-md-6">
-            <label asp-for="IsActive" class="form-label"></label>
-                <select asp-for="IsActive" class="form-select">
-                    <option value="">Select Status</option>
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                </select>
-            <span asp-validation-for="IsActive" class="text-danger"></span>
-        </div>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+</div>  
