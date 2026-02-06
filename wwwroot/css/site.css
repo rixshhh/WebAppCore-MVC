@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+ 
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -29,3 +30,63 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+
+.landing-container {
+    min-height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+}
+
+.landing-box {
+    max-width: 1000px;
+}
+
+    .landing-box h1 {
+        font-size: 3.5rem;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        margin-bottom: 20px;
+    }
+
+    .landing-box p {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: #cfd8ff;
+        margin-bottom: 40px;
+    }
+
+    .landing-box .btn-primary {
+        background-color: #ffffff;
+        color: #0a1a3a;
+        border: none;
+        padding: 12px 32px;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .landing-box .btn-primary:hover {
+            background-color: #dbe4ff;
+            transform: scale(1.05);
+     }
+
+    .landing-box h1 {
+        font-size: 4rem;
+        font-weight: 600;
+        letter-spacing: -0.04em;
+        margin-bottom: 20px;
+/*       Gradient text */
+        background: linear-gradient(90deg, #ffffff, #9db4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+/*         Soft glow */
+        text-shadow: 0 0 20px rgba(157, 180, 255, 0.25);
+/*         Animation */
+        animation: fadeSlide 1.2s ease-out forwards;
+    }

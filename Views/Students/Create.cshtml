@@ -1,4 +1,4 @@
-﻿@model WebApplication2.Models.StudentsViewModels
+﻿@model StudentsViewModels
 
 <div class="container mt-5">
     <div class="card shadow-sm">
@@ -11,12 +11,12 @@
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label asp-for="RollNumber" class="form-label">Roll Number</label>
-                        <input asp-for="RollNumber" class="form-control" placeholder="Enter roll number" />
+                        <input asp-for="RollNumber" class="form-control" placeholder="Enter roll number"/>
                         <span asp-validation-for="RollNumber" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="FirstName" class="form-label">First Name</label>
-                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name" />
+                        <input asp-for="FirstName" class="form-control" placeholder="Enter first name"/>
                         <span asp-validation-for="FirstName" class="text-danger small"></span>
                     </div>
                 </div>
@@ -25,12 +25,12 @@
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label asp-for="LastName" class="form-label">Last Name</label>
-                        <input asp-for="LastName" class="form-control" placeholder="Enter last name" />
+                        <input asp-for="LastName" class="form-control" placeholder="Enter last name"/>
                         <span asp-validation-for="LastName" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="DOB" class="form-label">Date of Birth</label>
-                        <input asp-for="DOB" class="form-control" type="date" />
+                        <input asp-for="DOB" class="form-control" type="date"/>
                         <span asp-validation-for="DOB" class="text-danger small"></span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="Email" class="form-label">Email</label>
-                        <input asp-for="Email" class="form-control" type="email" placeholder="Enter email address" />
+                        <input asp-for="Email" class="form-control" type="email" placeholder="Enter email address"/>
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
                 </div>
@@ -57,12 +57,12 @@
                 <div class="row mb-3">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Phone" class="form-label">Phone</label>
-                        <input asp-for="Phone" class="form-control" type="tel" placeholder="e.g. +1-234-567-8900" />
+                        <input asp-for="Phone" class="form-control" type="tel" placeholder="e.g. +1-234-567-8900"/>
                         <span asp-validation-for="Phone" class="text-danger small"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="AdmissionDate" class="form-label">Admission Date</label>
-                        <input asp-for="AdmissionDate" class="form-control" type="date" />
+                        <input asp-for="AdmissionDate" class="form-control" type="date"/>
                         <span asp-validation-for="AdmissionDate" class="text-danger small"></span>
                     </div>
                 </div>
@@ -92,4 +92,4 @@
             </form>
         </div>
     </div>
-</div>  
+</div>

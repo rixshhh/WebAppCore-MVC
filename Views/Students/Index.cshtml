@@ -1,94 +1,64 @@
-﻿@using WebApplication2.Data
-@model IReadOnlyList<StudentsViewModels>
+﻿@model IReadOnlyList<StudentsViewModels>
+@{
+    ViewData["Title"] = "Students";
+}
 
-<div class="container-fluid mt-4">
-    <div class="card shadow-sm">
-        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
-            <h4 class="mb-0">Student List</h4>
-            <a asp-action="Create" class="btn btn-light btn-sm">
-                + Add Student
-            </a>
-        </div>
+<div class="card shadow-sm border-0">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-semibold">Students</h5>
+        <a asp-action="Create" class="btn btn-primary btn-sm">
+            + Add Student
+        </a>
+    </div>
 
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-dark sticky-top">
-                        <tr>
-                            <th>ID</th>
-                            <th>Roll No</th>
-                            <th>Name</th>
-                            <th>DOB</th>
-                            <th>Gender</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Admission</th>
-                            <th>Status</th>
-                            <th>Created</th>
-                            <th>Updated</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Roll</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+            </tr>
+            </thead>
 
-                    <tbody>
-                        @foreach (var s in Model)
-                        {
-                            <tr>
-                                <td>@s.StudentID</td>
-                                <td>@s.RollNumber</td>
+            <tbody>
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td>@s.StudentID</td>
+                    <td>
+                        <strong>@s.FirstName @s.LastName</strong><br/>
+                        <small class="text-muted">@s.Address</small>
+                    </td>
+                    <td>@s.RollNumber</td>
+                    <td>@s.Email</td>
+                    <td>
+                        <span class="badge @(s.IsActive ? "bg-success" : "bg-secondary")">
+                            @(s.IsActive ? "Active" : "Inactive")
+                        </span>
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@s.StudentID"
+                           class="btn btn-sm btn-outline-primary">
+                            Edit
+                        </a>
 
-                                <td>
-                                    <strong>@s.FirstName @s.LastName</strong><br />
-                                    <small class="text-muted">@s.Address</small>
-                                </td>
+                        <a asp-action="Details" asp-route-id="@s.StudentID"
+                           class="btn btn-sm btn-outline-secondary">
+                            View
+                        </a>
 
-                                <td>@s.DOB?.ToString("dd MMM yyyy")</td>
-
-                                <td>
-                                    <span class="badge bg-info text-dark">
-                                        @s.Gender
-                                    </span>
-                                </td>
-
-                                <td>@s.Email</td>
-                                <td>@s.Phone</td>
-
-                                <td>@s.AdmissionDate?.ToString("dd MMM yyyy")</td>
-
-                                <td>
-                                    @if (s.IsActive)
-                                    {
-                                        <span class="badge bg-success">Active</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">Inactive</span>
-                                    }
-                                </td>
-
-                                <td>@s.CreatedAt?.ToString("dd MMM yyyy")</td>
-                                <td>@s.UpdatedAt?.ToString("dd MMM yyyy")</td>
-
-                                <td class="text-center">
-                                    <a class="btn btn-sm btn-outline-primary me-1" title="Edit">
-                                        ✏️
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-secondary me-1" title="View">
-                                        👁
-                                    </a>
-                                    <a class="btn btn-sm btn-outline-danger" title="Delete">
-                                        🗑
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="card-footer text-muted small">
-            Total Students: @Model.Count
-        </div>
+                        <a asp-action="Delete" asp-route-id="@s.StudentID"
+                           class="btn btn-sm btn-outline-danger">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
     </div>
 </div>
