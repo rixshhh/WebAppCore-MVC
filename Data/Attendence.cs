@@ -4,7 +4,7 @@ namespace WebApplication2.Data;
 
 public sealed class Attendence
 {
-    [Key] [Required] public int AttendanceID { get; set; }
+    [Key][Required] public int AttendanceID { get; set; }
 
     [Required] public int StudentID { get; set; }
     [Required] public int SubjectID { get; set; }

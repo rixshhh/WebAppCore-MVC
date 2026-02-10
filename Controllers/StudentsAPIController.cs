@@ -11,7 +11,7 @@ namespace WebApplication2.Controllers
 
         public StudentsAPIController(AppDbContext DbContext)
         {
-            _DbContext = DbContext;
+            _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
         }
 
 
