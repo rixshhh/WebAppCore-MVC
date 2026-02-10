@@ -1,0 +1,70 @@
+﻿@model List<AttendenceViewModel>
+
+<h2 class="mb-4">Attendance Report</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        No attendance records found.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Marked By</th>
+                <th>Present Students</th>
+                <th>Absent Students</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SubjectName</td>
+                    <td>@item.AttendanceDate.ToString("dd-MM-yyyy")</td>
+                    <td>@item.MarkedBy</td>
+
+                    <!-- Present Students -->
+                    <td>
+                        @if (item.PresentStudents.Any())
+                        {
+                            <ul class="mb-0">
+                                @foreach (var student in item.PresentStudents)
+                                {
+                                    <li>@student</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                    </td>
+
+                    <!-- Absent Students -->
+                    <td>
+                        @if (item.AbsentStudents.Any())
+                        {
+                            <ul class="mb-0">
+                                @foreach (var student in item.AbsentStudents)
+                                {
+                                    <li>@student</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

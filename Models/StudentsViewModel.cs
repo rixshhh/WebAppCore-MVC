@@ -2,7 +2,7 @@
 
 namespace WebApplication2.Models;
 
-public class StudentsViewModels
+public class StudentsViewModel
 {
     [Key] public int StudentID { get; set; }
 
@@ -21,6 +21,4 @@ public class StudentsViewModels
     public required DateOnly? AdmissionDate { get; set; }
     public required bool IsActive { get; set; }
     public required DateTime? CreatedAt { get; set; }
-
-    public required DateTime? UpdatedAt { get; set; }
 }

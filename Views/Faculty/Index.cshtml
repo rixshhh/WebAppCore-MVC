@@ -1,0 +1,40 @@
+﻿@model IReadOnlyList<FacultyVIewModel>
+
+@{
+    ViewData["Title"] = "Faculty List";
+}
+
+<h2 class="mb-4">All Faculties and Their Departments</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">
+        No faculty records found.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Faculty ID</th>
+                <th>Faculty Name</th>
+                <th>Department</th>
+                <th>Hire Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var faculty in Model)
+            {
+                <tr>
+                    <td>@faculty.FacultyID</td>
+                    <td>@faculty.FacultyName</td>
+                    <td>@faculty.Department</td>
+                    <td>@faculty.HireDate</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

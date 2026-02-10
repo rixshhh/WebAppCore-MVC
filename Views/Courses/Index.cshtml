@@ -1,106 +1,76 @@
-﻿@model CourseSubjectPageViewModels
+﻿@model IReadOnlyList<CourseViewModel>
+
 
 @{
     ViewData["Title"] = "Courses";
 }
 
-<div class="container-fluid">
+<h2 class="mb-3">Courses</h2>
 
-    <!-- Page Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h4 class="fw-semibold mb-0">Courses</h4>
-        <a asp-action="Create" class="btn btn-primary btn-sm">
-            + Add Course
-        </a>
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h5>All Courses</h5>
     </div>
 
-    <!-- Courses Table -->
-    <div class="card shadow-sm border-0 mb-4">
-        <div class="card-header fw-semibold">
-            All Courses
-        </div>
+    <div class="card-body p-0">
+        <table class="table table-bordered mb-0">
+            <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Code</th>
+                <th>Duration</th>
+                <th>Fees</th>
+                <th>Created</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                var count = 1;
+            }
 
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+            @foreach (var course in Model)
+            {
                 <tr>
-                    <th>#</th>
-                    <th>Course</th>
-                    <th>Code</th>
-                    <th>Duration</th>
-                    <th>Fees</th>
-                    <th>Created</th>
+                    <td>@count</td>
+                    <td>
+                        <strong>@course.CourseName</strong>
+                    </td>
+                    <td>@course.CourseCode</td>
+                    <td>
+                        <span class="badge bg-info">
+                            @course.DurationMonths Months
+                        </span>
+                    </td>
+                    <td>₹@course.TotalFees</td>
+                    <td>@course.CreatedAt.ToString("dd MMM yyyy")</td>
                 </tr>
-                </thead>
 
-                <tbody>
-                @foreach (var c in Model.Courses)
-                {
-                    <tr>
-                        <td>@c.CourseID</td>
+                <!-- Subjects Row -->
+                <tr>
+                    <td></td>
+                    <td colspan="5">
+                        <strong>Subjects:</strong>
 
-                        <td>
-                            <strong>@c.CourseName</strong>
-                        </td>
-
-                        <td>
-                            <span class="text-muted">@c.CourseCode</span>
-                        </td>
-
-                        <td>
-                            <span class="badge bg-info text-dark">
-                                @c.DurationMonths Months
-                            </span>
-                        </td>
-
-                        <td>
-                            £@c.TotalFees
-                        </td>
-
-                        <td>
-                            @c.CreatedAt.ToString("dd MMM yyyy")
-                        </td>
-                    </tr>
-                }
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Courses & Subjects -->
-    <div class="row">
-        @foreach (var course in Model.CourseSubjects)
-        {
-            <div class="col-lg-6 col-md-12 mb-4">
-                <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span class="fw-semibold">@course.CourseName</span>
-                        <span class="badge bg-secondary">@course.CourseCode</span>
-                    </div>
-
-                    <div class="card-body">
-                        @if (course.Subjects.Any())
+                        @if (course.Subjects != null && course.Subjects.Any())
                         {
-                            <ul class="list-unstyled mb-0">
+                            <ul class="mb-2">
                                 @foreach (var subject in course.Subjects)
                                 {
-                                    <li class="d-flex align-items-center mb-2 small text-muted">
-                                        <span class="me-2 text-primary">•</span>
-                                        @subject
-                                    </li>
+                                    <li>@subject</li>
                                 }
                             </ul>
                         }
                         else
                         {
-                            <span class="text-muted small">
-                                No subjects assigned
-                            </span>
+                            <span class="text-muted">No subjects added.</span>
                         }
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                    </td>
+                </tr>
 
+                count++;
+            }
+            </tbody>
+        </table>
+    </div>
 </div>

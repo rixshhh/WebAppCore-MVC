@@ -23,5 +23,5 @@ public sealed class Students
     public required bool IsActive { get; set; }
     public required DateTime? CreatedAt { get; set; }
 
-    public required DateTime? UpdatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

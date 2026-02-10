@@ -1,78 +1,71 @@
 ﻿@{
-    ViewData["Title"] = "SIMS - Student Information Management System";
+    ViewData["Title"] = "Dashboard";
 }
 
+<h2 class="mb-4">Dashboard</h2>
 
-<style>
-    body {
-        margin: 0;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background: linear-gradient(135deg, #0a1a3a, #0f2a5f);
-        color: #ffffff;
-    }
+<div class="row">
 
-    
-</style>
-@* 
-<div class="landing-container">
-    <div class="landing-box">
-        <h1 class="text-white">Student Information Management System</h1>
-        <p>
-            A modern full-stack Student Information Management System<br />
-            built with ASP.NET Core MVC.
-        </p>
-
-
-    </div> *@
-
-<section class="landing-container">
-    <div class="landing-box">
-        <h1>Student Information Management System</h1>
-        <p>Streamlining student data management for educational institutions.</p>
-    </div>
-</section>
-
-<div class="row g-4 justify-content-center">
-
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 text-center">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3 shadow">
             <div class="card-body">
-                <h3 class="card-title">Student</h3>
-                <p class="card-text text-muted">
-                    View and manage student information.
-                </p>
-                <a asp-controller="Students" asp-action="Index" class="btn btn-primary">
-                    Open
-                </a>
+                <h5>Total Students</h5>
+                <h3>@ViewBag.TotalStudents</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 text-center">
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3 shadow">
             <div class="card-body">
-                <h3 class="card-title">Courses</h3>
-                <p class="card-text text-muted">
-                    All Course Details
-                </p>
-                <a asp-controller="Courses" asp-action="Index" class="btn btn-primary">
-                    Open
-                </a>
+                <h5>Total Faculties</h5>
+                <h3>@ViewBag.TotalFaculty</h3>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card shadow-sm h-100 text-center">
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3 shadow">
             <div class="card-body">
-                <h3 class="card-title">Student</h3>
-                <p class="card-text text-muted">
-                    View and manage student information.
-                </p>
-                <a asp-controller="Student" asp-action="Index" class="btn btn-primary">
-                    Open
-                </a>
+                <h5>Total Courses</h5>
+                <h3>@ViewBag.TotalCourses</h3>
             </div>
         </div>
     </div>
+
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3 shadow">
+            <div class="card-body">
+                <h5>Total Revenue</h5>
+                <h3>@ViewBag.TotalRevenues</h3>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<hr/>
+
+<h4>Upcoming Exams</h4>
+
+<table class="table table-bordered table-striped mt-3">
+    <thead class="table-dark">
+    <tr>
+        <th>Subject</th>
+        <th>Date</th>
+        <th>Max Marks</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Mathematics</td>
+        <td>10 March 2026</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td>Physics</td>
+        <td>15 March 2026</td>
+        <td>100</td>
+    </tr>
+    </tbody>
+</table>

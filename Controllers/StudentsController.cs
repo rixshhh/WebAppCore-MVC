@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebApplication2.Data;
 using WebApplication2.Models;
+using WebApplication2.Services;
 
 namespace WebApplication2.Controllers;
 
@@ -15,26 +15,9 @@ public class StudentsController : Controller
 
     public IActionResult Index()
     {
-        AppDbContext DbContext = new();
-        IReadOnlyList<StudentsViewModels> students = DbContext.Students
-            .Select(s => new StudentsViewModels
-            {
-                StudentID = s.StudentID,
-                RollNumber = s.RollNumber,
-                FirstName = s.FirstName,
-                LastName = s.LastName,
-                DOB = s.DOB,
-                Gender = s.Gender,
-                Email = s.Email,
-                Phone = s.Phone,
-                Address = s.Address,
-                AdmissionDate = s.AdmissionDate,
-                IsActive = s.IsActive,
-                CreatedAt = s.CreatedAt,
-                UpdatedAt = s.UpdatedAt
-            }).ToList();
-
-        return View(students);
+        StudentServices studentServices = new();
+        var allStudentDetails = studentServices.GetStudents();
+        return View(allStudentDetails);
     }
 
 
@@ -45,33 +28,13 @@ public class StudentsController : Controller
     }
 
     [HttpPost]
-    public IActionResult Create(StudentsViewModels model)
+    public IActionResult Create(StudentsViewModel students)
     {
-        if (ModelState.IsValid)
-        {
-            var student = new Students
-            {
-                RollNumber = model.RollNumber,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                DOB = model.DOB,
-                Gender = model.Gender,
-                Email = model.Email,
-                Phone = model.Phone,
-                Address = model.Address,
-                AdmissionDate = model.AdmissionDate,
-                IsActive = model.IsActive,
-                CreatedAt = DateTime.UtcNow.Date,
-                UpdatedAt = DateTime.UtcNow.Date
-            };
+        if (!ModelState.IsValid) return View(students);
 
-            AppDbContext DbContext = new();
-            DbContext.Students.Add(student);
-            DbContext.SaveChanges();
-
-            return RedirectToAction("Index");
-        }
-
-        return View(model);
+        StudentServices addStudent = new();
+        var result = addStudent.CreateStudent(students);
+        if (result) return RedirectToAction(nameof(Index));
+        return View();
     }
 }

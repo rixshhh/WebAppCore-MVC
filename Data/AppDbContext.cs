@@ -12,6 +12,12 @@ public sealed class AppDbContext : DbContext
 
     public DbSet<Enrollments> Enrollments { get; init; }
 
+    public DbSet<Attendence> Attendence { get; init; }
+
+    public DbSet<Faculty> Faculty { get; set; }
+
+    public DbSet<Fees> Fees { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer(

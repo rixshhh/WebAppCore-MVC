@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication2.Data;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers;
@@ -8,6 +9,17 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
+        AppDbContext DbContext = new();
+        var totalStudents = DbContext.Students.Count();
+        var totalFaculty = DbContext.Faculty.Count();
+        var totalCourses = DbContext.Courses.Count();
+        var totalRevenue = DbContext.Fees.Sum(f => f.PaidAmount);
+
+
+        ViewBag.TotalStudents = totalStudents;
+        ViewBag.TotalFaculty = totalFaculty;
+        ViewBag.TotalCourses = totalCourses;
+        ViewBag.TotalRevenues = totalRevenue;
         return View();
     }
 
