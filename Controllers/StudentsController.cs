@@ -6,17 +6,16 @@ namespace WebApplication2.Controllers;
 
 public class StudentsController : Controller
 {
-    //private readonly AppDbContext _data;
+    private readonly StudentServices _studentServices;
 
-    //public StudentsController(AppDbContext data)
-    //{
-    //    _data = data;
-    //}
+    public StudentsController(StudentServices studentServices)
+    {
+        _studentServices = studentServices;
+    }
 
     public IActionResult Index()
     {
-        StudentServices studentServices = new();
-        var allStudentDetails = studentServices.GetStudents();
+        var allStudentDetails = _studentServices.GetStudents();
         return View(allStudentDetails);
     }
 
@@ -32,9 +31,10 @@ public class StudentsController : Controller
     {
         if (!ModelState.IsValid) return View(students);
 
-        StudentServices addStudent = new();
-        var result = addStudent.CreateStudent(students);
+        var result = _studentServices.CreateStudent(students);
+
         if (result) return RedirectToAction(nameof(Index));
+
         return View();
     }
 }

@@ -4,6 +4,9 @@ namespace WebApplication2.Data;
 
 public sealed class AppDbContext : DbContext
 {
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
     public DbSet<Students> Students { get; init; }
 
     public DbSet<Courses> Courses { get; init; }
@@ -18,11 +21,11 @@ public sealed class AppDbContext : DbContext
 
     public DbSet<Fees> Fees { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(
-            "Server=DESKTOP-0OS7L52\\SQLEXPRESS;Database=SIMS;Trusted_Connection=True;TrustServerCertificate=True"
-        );
-        base.OnConfiguring(optionsBuilder);
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer(
+    //        "Server=DESKTOP-0OS7L52\\SQLEXPRESS;Database=SIMS;Trusted_Connection=True;TrustServerCertificate=True"
+    //    );
+    //    base.OnConfiguring(optionsBuilder);
+    //}
 }

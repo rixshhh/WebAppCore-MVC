@@ -5,10 +5,15 @@ namespace WebApplication2.Controllers;
 
 public class CoursesController : Controller
 {
+    private readonly CourseServices _courseServices;
+
+    public CoursesController(CourseServices courseServices)
+    {
+        _courseServices = courseServices ?? throw new ArgumentNullException(nameof(CourseServices));
+    }
     public IActionResult Index()
     {
-        CourseServices courseServices = new();
-        var getCourses = courseServices.GetCourses();
+        var getCourses = _courseServices.GetCourses();
         return View(getCourses);
     }
 }

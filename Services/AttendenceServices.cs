@@ -5,26 +5,32 @@ namespace WebApplication2.Services;
 
 public class AttendenceServices
 {
+    private readonly AppDbContext _DbContext;
+
+    public AttendenceServices(AppDbContext DbContext)
+    {
+        _DbContext = DbContext;
+    }
+
     public IEnumerable<AttendenceViewModel> GetAttendenceDetails()
     {
-        AppDbContext DbContext = new();
 
         var attendanceData =
-            (from a in DbContext.Attendence
-                join s in DbContext.Students
-                    on a.StudentID equals s.StudentID
-                join sub in DbContext.Subjects
-                    on a.SubjectID equals sub.SubjectID
-                join f in DbContext.Faculty
-                    on a.MarkedBy equals f.FacultyID
-                select new
-                {
-                    StudentName = s.FirstName + " " + s.LastName,
-                    sub.SubjectName,
-                    a.AttendanceDate,
-                    a.Status,
-                    MarkedBy = f.FacultyName
-                }).ToList();
+            (from a in _DbContext.Attendence
+             join s in _DbContext.Students
+                 on a.StudentID equals s.StudentID
+             join sub in _DbContext.Subjects
+                 on a.SubjectID equals sub.SubjectID
+             join f in _DbContext.Faculty
+                 on a.MarkedBy equals f.FacultyID
+             select new
+             {
+                 StudentName = s.FirstName + " " + s.LastName,
+                 sub.SubjectName,
+                 a.AttendanceDate,
+                 a.Status,
+                 MarkedBy = f.FacultyName
+             }).ToList();
 
         var result = attendanceData
             .GroupBy(x => new { x.SubjectName, x.AttendanceDate, x.MarkedBy })

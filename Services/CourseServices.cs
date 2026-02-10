@@ -1,17 +1,23 @@
-﻿using WebApplication2.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication2.Data;
 using WebApplication2.Models;
 
 namespace WebApplication2.Services;
 
 public class CourseServices
 {
-    private readonly AppDbContext DbContext = new();
+    private readonly AppDbContext _DbContext;
+
+    public CourseServices(AppDbContext DbContext)
+    {
+        _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
+    }
 
     public IEnumerable<CourseViewModel> GetCourses()
     {
-        var course = DbContext.Courses
+        var course = _DbContext.Courses
             .GroupJoin(
-                DbContext.Subjects,
+                _DbContext.Subjects,
                 c => c.CourseID,
                 s => s.CourseID,
                 (c, subjects) => new CourseViewModel

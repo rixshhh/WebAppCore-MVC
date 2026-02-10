@@ -5,10 +5,15 @@ namespace WebApplication2.Controllers;
 
 public class AttendenceController : Controller
 {
+    private readonly AttendenceServices _attendenceServices;
+
+    public AttendenceController(AttendenceServices attendenceServices)
+    {
+        _attendenceServices = _attendenceServices ?? throw new ArgumentNullException(nameof(AttendenceServices));
+    }
     public IActionResult Index()
     {
-        AttendenceServices attendenceServices = new();
-        var getAttendenceDetails = attendenceServices.GetAttendenceDetails();
+        var getAttendenceDetails = _attendenceServices.GetAttendenceDetails();
         return View(getAttendenceDetails);
     }
 }

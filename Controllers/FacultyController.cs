@@ -5,10 +5,15 @@ namespace WebApplication2.Controllers;
 
 public class FacultyController : Controller
 {
+    private readonly FacultyServices _facultyService;
+
+    public FacultyController(FacultyServices facultyServices)
+    {
+        _facultyService = facultyServices ?? throw new ArgumentNullException(nameof(FacultyServices));
+    }
     public IActionResult Index()
     {
-        FacultyServices facultyService = new();
-        var getFacultyDetails = facultyService.getFacultyDetails();
+        var getFacultyDetails = _facultyService.getFacultyDetails();
         return View(getFacultyDetails);
     }
 }

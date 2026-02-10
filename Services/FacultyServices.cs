@@ -5,11 +5,16 @@ namespace WebApplication2.Services;
 
 public class FacultyServices
 {
+    private readonly AppDbContext _DbContext;
+
+    public FacultyServices(AppDbContext DbContext)
+    {
+        _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
+    }
     public IEnumerable<FacultyVIewModel> getFacultyDetails()
     {
-        AppDbContext DbContext = new();
 
-        IReadOnlyList<FacultyVIewModel> faculty = DbContext.Faculty
+        IReadOnlyList<FacultyVIewModel> faculty = _DbContext.Faculty
             .Select(f => new FacultyVIewModel
             {
                 FacultyID = f.FacultyID,

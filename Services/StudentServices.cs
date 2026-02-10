@@ -1,15 +1,21 @@
-﻿using WebApplication2.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication2.Data;
 using WebApplication2.Models;
 
 namespace WebApplication2.Services;
 
 public class StudentServices
 {
-    private readonly AppDbContext DbContext = new();
+    private readonly AppDbContext _DbContext;
+
+    public StudentServices(AppDbContext DbContext)
+    {
+        _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
+    }
 
     public IEnumerable<StudentsViewModel> GetStudents()
     {
-        IReadOnlyList<StudentsViewModel> Students = DbContext.Students
+        IReadOnlyList<StudentsViewModel> Students = _DbContext.Students
             .Select(s => new StudentsViewModel
             {
                 StudentID = s.StudentID,
@@ -46,8 +52,8 @@ public class StudentServices
             CreatedAt = DateTime.UtcNow.Date
         };
 
-        DbContext.Students.Add(createStudent);
-        DbContext.SaveChanges();
+        _DbContext.Students.Add(createStudent);
+        _DbContext.SaveChanges();
 
         return true;
     }

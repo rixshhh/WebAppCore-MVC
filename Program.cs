@@ -1,7 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using WebApplication2.Data;
+using WebApplication2.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services
+    .AddScoped<StudentServices>()
+    .AddScoped<CourseServices>()
+    .AddScoped<EnrollmentServices>()
+    .AddScoped<FacultyServices>()
+    .AddScoped<AttendenceServices>();
 
 
 var app = builder.Build();
