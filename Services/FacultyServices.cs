@@ -11,9 +11,9 @@ public class FacultyServices
     {
         _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
     }
+
     public IEnumerable<FacultyVIewModel> getFacultyDetails()
     {
-
         IReadOnlyList<FacultyVIewModel> faculty = _DbContext.Faculty
             .Select(f => new FacultyVIewModel
             {

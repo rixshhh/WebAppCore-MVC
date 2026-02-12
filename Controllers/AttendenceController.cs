@@ -11,6 +11,7 @@ public class AttendenceController : Controller
     {
         _attendenceServices = _attendenceServices ?? throw new ArgumentNullException(nameof(AttendenceServices));
     }
+
     public IActionResult Index()
     {
         var getAttendenceDetails = _attendenceServices.GetAttendenceDetails();

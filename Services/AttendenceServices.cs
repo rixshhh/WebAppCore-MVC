@@ -14,23 +14,22 @@ public class AttendenceServices
 
     public IEnumerable<AttendenceViewModel> GetAttendenceDetails()
     {
-
         var attendanceData =
             (from a in _DbContext.Attendence
-             join s in _DbContext.Students
-                 on a.StudentID equals s.StudentID
-             join sub in _DbContext.Subjects
-                 on a.SubjectID equals sub.SubjectID
-             join f in _DbContext.Faculty
-                 on a.MarkedBy equals f.FacultyID
-             select new
-             {
-                 StudentName = s.FirstName + " " + s.LastName,
-                 sub.SubjectName,
-                 a.AttendanceDate,
-                 a.Status,
-                 MarkedBy = f.FacultyName
-             }).ToList();
+                join s in _DbContext.Students
+                    on a.StudentID equals s.StudentID
+                join sub in _DbContext.Subjects
+                    on a.SubjectID equals sub.SubjectID
+                join f in _DbContext.Faculty
+                    on a.MarkedBy equals f.FacultyID
+                select new
+                {
+                    StudentName = s.FirstName + " " + s.LastName,
+                    sub.SubjectName,
+                    a.AttendanceDate,
+                    a.Status,
+                    MarkedBy = f.FacultyName
+                }).ToList();
 
         var result = attendanceData
             .GroupBy(x => new { x.SubjectName, x.AttendanceDate, x.MarkedBy })

@@ -11,6 +11,7 @@ public class FacultyController : Controller
     {
         _facultyService = facultyServices ?? throw new ArgumentNullException(nameof(FacultyServices));
     }
+
     public IActionResult Index()
     {
         var getFacultyDetails = _facultyService.getFacultyDetails();

@@ -11,6 +11,7 @@ public class CoursesController : Controller
     {
         _courseServices = courseServices ?? throw new ArgumentNullException(nameof(CourseServices));
     }
+
     public IActionResult Index()
     {
         var getCourses = _courseServices.GetCourses();
