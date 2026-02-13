@@ -20,7 +20,7 @@ public sealed class Students
     public required string Address { get; set; }
 
     public required DateOnly? AdmissionDate { get; set; }
-    public required bool IsActive { get; set; }
+    public required bool IsActive { get; set; } = true;
     public required DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }

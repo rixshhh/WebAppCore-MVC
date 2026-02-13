@@ -4,7 +4,7 @@ namespace WebApplication2.Data;
 
 public sealed class Faculty
 {
-    [Key] public required int FacultyID { get; set; }
+    [Key] public int FacultyID { get; set; }
 
     [StringLength(100)] public required string FacultyName { get; set; }
 

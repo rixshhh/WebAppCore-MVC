@@ -1,4 +1,5 @@
-﻿using WebApplication2.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using WebApplication2.Data;
 using WebApplication2.DTOs;
 using WebApplication2.Models;
 
@@ -7,10 +8,12 @@ namespace WebApplication2.Services;
 public class StudentServices
 {
     private readonly AppDbContext _DbContext;
+    private readonly ILogger<StudentServices> _logger;
 
-    public StudentServices(AppDbContext DbContext)
+    public StudentServices(AppDbContext DbContext, ILogger<StudentServices> logger)
     {
         _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
+        _logger = logger;
     }
 
     public IEnumerable<StudentsViewModel> GetStudents()
@@ -104,7 +107,7 @@ public class StudentServices
     }
 
 
-    public bool CreateStudentRequest(CreateStudentRequestDTO studentRequest)
+    public StudentsDTO? CreateStudentRequest(CreateStudentRequestDTO studentRequest)
     {
         try
         {
@@ -132,12 +135,40 @@ public class StudentServices
             _DbContext.Students.Add(student);
             _DbContext.SaveChanges();
 
-            return true;
+            return new StudentsDTO(
+                student.StudentID,
+                student.RollNumber,
+                student.FirstName,
+                student.LastName,
+                student.DOB,
+                student.Gender,
+                student.Email,
+                student.Phone,
+                student.Address,
+                student.AdmissionDate,
+                student.IsActive,
+                student.CreatedAt
+            );
         }
-        catch (Exception)
+        catch (ConflictException ex)
         {
-            return false;
+            _logger.LogError(ex, "Error while creating a state with name {RollNumber}. Some conflicts occured.",
+                studentRequest.RollNumber);
         }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex,
+                "Error while creating a state with name {RollNumber}. Problem in execution of sql query.",
+                studentRequest.RollNumber);
+        }
+        catch (Exception e)
+        {
+            // _logger.LogError(e, "Error while creating a state with name {stateName} {code}.", request.Name,
+            //     request.Code);
+            _logger.LogError(e, "Error while creating a state with name {@state}.", studentRequest);
+        }
+
+        return null;
     }
 
 
@@ -148,6 +179,19 @@ public class StudentServices
             var student = _DbContext.Students.Find(StudentID);
 
             if (student is null) return null;
+
+            // Roll Number
+            var rollNumberExists = _DbContext.Students
+                .Any(s => s.RollNumber == studentRequest.RollNumber && s.StudentID != StudentID);
+
+            if (rollNumberExists) throw new Exception($"Roll number '{studentRequest.RollNumber}' already exists.");
+
+            // Email
+            var emailExists = _DbContext.Students
+                .Any(s => s.Email == studentRequest.Email && s.StudentID != StudentID);
+
+            if (emailExists) throw new Exception($"Email '{studentRequest.Email}' already exists.");
+
 
             student.RollNumber = studentRequest.RollNumber;
             student.FirstName = studentRequest.FirstName;
@@ -160,11 +204,6 @@ public class StudentServices
             student.AdmissionDate = studentRequest.AdmissionDate;
             student.IsActive = studentRequest.IsActive;
             student.CreatedAt = DateTime.UtcNow.Date;
-
-            var exists = _DbContext.Students
-                .Any(s => s.RollNumber == studentRequest.RollNumber);
-
-            if (exists) throw new Exception("Student is already exist with this RollNumber.");
 
             _DbContext.SaveChanges();
 
@@ -187,5 +226,93 @@ public class StudentServices
         {
             return null;
         }
+    }
+
+
+    public StudentsDTO? DeteleStudent(int StudentID)
+    {
+        try
+        {
+            var student = _DbContext.Students.FirstOrDefault(s => s.StudentID == StudentID);
+
+            if (student is null)
+                throw new ConflictException($"Cannot find this StudentID {StudentID}");
+
+            _DbContext.Students.Remove(student);
+
+            _DbContext.SaveChanges();
+
+            return new StudentsDTO(
+                student.StudentID,
+                student.RollNumber,
+                student.FirstName,
+                student.LastName,
+                student.DOB,
+                student.Gender,
+                student.Email,
+                student.Phone,
+                student.Address,
+                student.AdmissionDate,
+                student.IsActive,
+                student.CreatedAt
+            );
+        }
+        catch (ConflictException ex)
+        {
+            _logger.LogError(ex, "Error while creating a state with StudentID {StudentID}. Some conflicts occured.",
+                StudentID);
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex,
+                "Database error while deleting student with ID {StudentID}", StudentID);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Unexpected error while deleting student with ID {StudentID}", StudentID);
+        }
+
+        return null;
+    }
+
+    public StudentsDTO? PatchStudent(int StudentID, PatchStudentStatusRequest patchRequest)
+    {
+        try
+        {
+            var student = _DbContext.Students.Find(StudentID);
+
+            if (student is null)
+                throw new ConflictException($"Cannot find this StudentID {StudentID}.Please Enter valid StudentID.");
+
+            _DbContext.Entry(student).CurrentValues.SetValues(patchRequest);
+
+            _DbContext.SaveChanges();
+
+            return new StudentsDTO(
+                student.StudentID,
+                student.RollNumber,
+                student.FirstName,
+                student.LastName,
+                student.DOB,
+                student.Gender,
+                student.Email,
+                student.Phone,
+                student.Address,
+                student.AdmissionDate,
+                student.IsActive,
+                student.CreatedAt
+            );
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex,
+                "Database error while patching student {StudentID}", StudentID);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Unexpected error while patching student with StudentID {StudentID}", StudentID);
+        }
+
+        return null;
     }
 }

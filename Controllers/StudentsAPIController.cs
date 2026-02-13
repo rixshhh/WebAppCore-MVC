@@ -27,7 +27,7 @@ public sealed class StudentsAPIController : ControllerBase
     [Route("/api/StudentDetails/{StudentID:int}")]
     public IActionResult GetStudentById(int StudentID)
     {
-        var student = _studentServices.GetStudentById(StudentID);
+        StudentsDTO? student = _studentServices.GetStudentById(StudentID);
 
         if (student == null) return NotFound();
 
@@ -38,10 +38,12 @@ public sealed class StudentsAPIController : ControllerBase
     [Route("/api/StudentDetails")]
     public IActionResult Create([FromBody] CreateStudentRequestDTO studentRequest)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        var result = _studentServices.CreateStudentRequest(studentRequest);
-        return Ok(result);
+        StudentsDTO? result = _studentServices.CreateStudentRequest(studentRequest);
+        return result is null
+            ? Problem("There was some problem. See log for more details.")
+            : Ok(result);
     }
 
 
@@ -49,9 +51,35 @@ public sealed class StudentsAPIController : ControllerBase
     [Route("/api/StudentDetails/{StudentID:int}")]
     public IActionResult Update([FromBody] CreateStudentRequestDTO request, int StudentID)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        var student = _studentServices.UpdateStudent(StudentID, request);
-        return student is null ? NotFound() : Ok(student);
+        StudentsDTO? student = _studentServices.UpdateStudent(StudentID, request);
+        return student is null
+            ? Problem("There was some problem. See log for more details.")
+            : Ok(student);
+    }
+
+    [HttpPatch]
+    [Route("/api/StudentDetails/{StudentID:int}")]
+    public IActionResult PartialUpdate([FromBody] PatchStudentStatusRequest request, int StudentID)
+    {
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+        StudentsDTO? patchedStudent = _studentServices.PatchStudent(StudentID, request);
+        return patchedStudent is null
+            ? Problem("There was some problem. See log for more details.")
+            : Ok(patchedStudent);
+    }
+
+    [HttpDelete]
+    [Route("/api/StudentDetails/{StudentID:int}")]
+    public IActionResult Delete(int StudentID)
+    {
+        if (!ModelState.IsValid) return ValidationProblem(ModelState);
+
+        StudentsDTO? deletedStudent = _studentServices.DeteleStudent(StudentID);
+        return deletedStudent is null
+            ? Problem("There was some problem. See log for more details.")
+            : Ok(deletedStudent);
     }
 }
