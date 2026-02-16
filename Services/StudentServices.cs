@@ -229,7 +229,7 @@ public class StudentServices
     }
 
 
-    public StudentsDTO? DeteleStudent(int StudentID)
+    public StudentsDTO? DeleteStudent(int StudentID)
     {
         try
         {

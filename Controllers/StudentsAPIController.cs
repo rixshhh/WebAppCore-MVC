@@ -27,7 +27,7 @@ public sealed class StudentsAPIController : ControllerBase
     [Route("/api/StudentDetails/{StudentID:int}")]
     public IActionResult GetStudentById(int StudentID)
     {
-        StudentsDTO? student = _studentServices.GetStudentById(StudentID);
+        var student = _studentServices.GetStudentById(StudentID);
 
         if (student == null) return NotFound();
 
@@ -40,7 +40,7 @@ public sealed class StudentsAPIController : ControllerBase
     {
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        StudentsDTO? result = _studentServices.CreateStudentRequest(studentRequest);
+        var result = _studentServices.CreateStudentRequest(studentRequest);
         return result is null
             ? Problem("There was some problem. See log for more details.")
             : Ok(result);
@@ -53,7 +53,7 @@ public sealed class StudentsAPIController : ControllerBase
     {
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        StudentsDTO? student = _studentServices.UpdateStudent(StudentID, request);
+        var student = _studentServices.UpdateStudent(StudentID, request);
         return student is null
             ? Problem("There was some problem. See log for more details.")
             : Ok(student);
@@ -65,7 +65,7 @@ public sealed class StudentsAPIController : ControllerBase
     {
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        StudentsDTO? patchedStudent = _studentServices.PatchStudent(StudentID, request);
+        var patchedStudent = _studentServices.PatchStudent(StudentID, request);
         return patchedStudent is null
             ? Problem("There was some problem. See log for more details.")
             : Ok(patchedStudent);
@@ -77,7 +77,7 @@ public sealed class StudentsAPIController : ControllerBase
     {
         if (!ModelState.IsValid) return ValidationProblem(ModelState);
 
-        StudentsDTO? deletedStudent = _studentServices.DeteleStudent(StudentID);
+        var deletedStudent = _studentServices.DeleteStudent(StudentID);
         return deletedStudent is null
             ? Problem("There was some problem. See log for more details.")
             : Ok(deletedStudent);

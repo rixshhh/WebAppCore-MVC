@@ -25,7 +25,7 @@ public class FacultyAPIController : ControllerBase
     [Route("/api/FacultyDetails/{FacultyID:int}")]
     public IActionResult GetFacultyDetailsById(int FacultyID)
     {
-        FacultyDTO? facultyDetailsById = _facultyServices.GetFacultyDetailsById(FacultyID);
+        var facultyDetailsById = _facultyServices.GetFacultyDetailsById(FacultyID);
 
         if (facultyDetailsById == null) return NotFound();
 
@@ -49,7 +49,7 @@ public class FacultyAPIController : ControllerBase
     public IActionResult UpdateFaculty(int FacultyID, [FromBody] CreateFacultyRequestDTO facultyRequest)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        FacultyDTO? faculty = _facultyServices.UpdateFacultyRequest(FacultyID, facultyRequest);
+        var faculty = _facultyServices.UpdateFacultyRequest(FacultyID, facultyRequest);
 
         return faculty is null ? NotFound() : Ok(faculty);
     }
