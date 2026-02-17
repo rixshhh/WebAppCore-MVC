@@ -10,7 +10,7 @@ public class AttendenceServices
 
     public AttendenceServices(AppDbContext DbContext, ILogger<AttendenceServices> logger)
     {
-        _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
+        _DbContext = DbContext;
         _logger = logger;
     }
 
@@ -18,20 +18,20 @@ public class AttendenceServices
     {
         var attendanceData =
             (from a in _DbContext.Attendence
-             join s in _DbContext.Students
-                 on a.StudentID equals s.StudentID
-             join sub in _DbContext.Subjects
-                 on a.SubjectID equals sub.SubjectID
-             join f in _DbContext.Faculty
-                 on a.MarkedBy equals f.FacultyID
-             select new
-             {
-                 StudentName = s.FirstName + " " + s.LastName,
-                 sub.SubjectName,
-                 a.AttendanceDate,
-                 a.Status,
-                 MarkedBy = f.FacultyName
-             }).ToList();
+                join s in _DbContext.Students
+                    on a.StudentID equals s.StudentID
+                join sub in _DbContext.Subjects
+                    on a.SubjectID equals sub.SubjectID
+                join f in _DbContext.Faculty
+                    on a.MarkedBy equals f.FacultyID
+                select new
+                {
+                    StudentName = s.FirstName + " " + s.LastName,
+                    sub.SubjectName,
+                    a.AttendanceDate,
+                    a.Status,
+                    MarkedBy = f.FacultyName
+                }).ToList();
 
         var result = attendanceData
             .GroupBy(x => new { x.SubjectName, x.AttendanceDate, x.MarkedBy })
@@ -61,20 +61,20 @@ public class AttendenceServices
     {
         var attendanceData =
             (from a in _DbContext.Attendence
-             join s in _DbContext.Students
-                 on a.StudentID equals s.StudentID
-             join sub in _DbContext.Subjects
-                 on a.SubjectID equals sub.SubjectID
-             join f in _DbContext.Faculty
-                 on a.MarkedBy equals f.FacultyID
-             select new
-             {
-                 StudentName = s.FirstName + " " + s.LastName,
-                 sub.SubjectName,
-                 a.AttendanceDate,
-                 a.Status,
-                 MarkedBy = f.FacultyName
-             }).ToList();
+                join s in _DbContext.Students
+                    on a.StudentID equals s.StudentID
+                join sub in _DbContext.Subjects
+                    on a.SubjectID equals sub.SubjectID
+                join f in _DbContext.Faculty
+                    on a.MarkedBy equals f.FacultyID
+                select new
+                {
+                    StudentName = s.FirstName + " " + s.LastName,
+                    sub.SubjectName,
+                    a.AttendanceDate,
+                    a.Status,
+                    MarkedBy = f.FacultyName
+                }).ToList();
 
         var result = attendanceData
             .GroupBy(x => new { x.SubjectName, x.AttendanceDate, x.MarkedBy })
@@ -98,6 +98,4 @@ public class AttendenceServices
 
         return result;
     }
-
-
 }

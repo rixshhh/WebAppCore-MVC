@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WebApplication2.Data;
+﻿using WebApplication2.Data;
 using WebApplication2.DTOs;
 using WebApplication2.Models;
 
@@ -9,6 +8,7 @@ public class CourseServices
 {
     private readonly AppDbContext _DbContext;
     private readonly ILogger<CourseServices> _logger;
+
     public CourseServices(AppDbContext DbContext, ILogger<CourseServices> logger)
     {
         _DbContext = DbContext ?? throw new ArgumentNullException(nameof(DbContext));
@@ -66,7 +66,7 @@ public class CourseServices
     public CourseDTO? GetCourseById(int CourseID)
     {
         var course = _DbContext.Courses
-         .GroupJoin(
+            .GroupJoin(
                 _DbContext.Subjects,
                 c => c.CourseID,
                 s => s.CourseID,
@@ -82,7 +82,7 @@ public class CourseServices
                         .Select(s => s.SubjectName)
                         .ToList()
                 })
-        .FirstOrDefault(c => c.CourseID == CourseID);
+            .FirstOrDefault(c => c.CourseID == CourseID);
 
         if (course is null) return null;
 

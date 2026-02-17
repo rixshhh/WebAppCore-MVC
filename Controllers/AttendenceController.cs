@@ -9,7 +9,7 @@ public class AttendenceController : Controller
 
     public AttendenceController(AttendenceServices attendenceServices)
     {
-        _attendenceServices = attendenceServices ?? throw new ArgumentNullException(nameof(attendenceServices));
+        _attendenceServices = _attendenceServices ?? throw new ArgumentNullException(nameof(AttendenceServices));
     }
 
     public IActionResult Index()

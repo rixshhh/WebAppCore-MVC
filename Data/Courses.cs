@@ -19,8 +19,4 @@ public sealed class Courses
     public required decimal TotalFees { get; set; }
 
     [DataType(DataType.Date)] public required DateTime CreatedAt { get; set; }
-
-    public List<string> Subjects { get; set; } = new();
-
-
 }

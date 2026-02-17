@@ -1,12 +1,11 @@
-﻿namespace WebApplication2.DTOs
-{
-    public class SubjectDTO(
-     int SubjectID,
-     string SubjectName
-     )
-    {
-        public int SubjectID { get; } = SubjectID;
+﻿namespace WebApplication2.DTOs;
 
-        public string SubjectName { get; } = SubjectName;
-    }
+public class SubjectDTO(
+    int SubjectID,
+    string SubjectName
+)
+{
+    public int SubjectID { get; } = SubjectID;
+
+    public string SubjectName { get; } = SubjectName;
 }
