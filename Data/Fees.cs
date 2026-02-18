@@ -16,5 +16,5 @@ public class Fees
 
     public DateOnly? LastPaymentDate { get; set; }
 
-    public string Status { get; set; } = string.Empty; // Computed i
+    public string? Status { get; set; } // Computed i
 }

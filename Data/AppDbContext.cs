@@ -20,6 +20,7 @@ public sealed class AppDbContext : DbContext
 
     public DbSet<Faculty> Faculty { get; set; }
 
+    public DbSet<Exams> Exams { get; set; }
     public DbSet<Fees> Fees { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

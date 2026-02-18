@@ -1,0 +1,42 @@
+﻿@model IReadOnlyList<SubjectViewModel>
+
+@{
+    ViewData["Title"] = "Subjects List";
+}
+
+<h2 class="page-title">Subjects List</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th>Subject ID</th>
+                <th>Course ID</th>
+                <th>Subject Code</th>
+                <th>Subject Name</th>
+                <th>Credits</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var subject in Model)
+                {
+                    <tr>
+                        <td>@subject.SubjectID</td>
+                        <td>@subject.CourseID</td>
+                        <td>@subject.SubjectCode</td>
+                        <td>@subject.SubjectName</td>
+                        <td>@subject.Credits</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="no-data">No subjects available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

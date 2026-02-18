@@ -14,10 +14,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services
     .AddScoped<StudentServices>()
+    .AddScoped<SubjectServices>()
     .AddScoped<CourseServices>()
     .AddScoped<EnrollmentServices>()
     .AddScoped<FacultyServices>()
-    .AddScoped<AttendenceServices>();
+    .AddScoped<AttendenceServices>()
+    .AddScoped<FeesServices>();
 
 
 var app = builder.Build();

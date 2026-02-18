@@ -9,5 +9,5 @@ public sealed class Subjects
     public required string SubjectName { get; set; }
     public required string SubjectCode { get; set; }
     public int CourseID { get; set; }
-    public required int Credits { get; set; }
+    public required byte Credits { get; set; }
 }

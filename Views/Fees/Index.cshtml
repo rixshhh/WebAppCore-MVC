@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FeesViewModel>
+
+@{
+    ViewData["Title"] = "Fees Details";
+}
+
+<h2 class="page-title">Fees Details</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-primary">
+            <tr>
+                <th>Student Name</th>
+                <th>Total Amount</th>
+                <th>Paid Amount</th>
+                <th>Due Amount</th>
+                <th>Last Payment Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StudentName</td>
+                        <td>@item.TotalAmount.ToString("C")</td>
+                        <td>@item.PaidAmount.ToString("C")</td>
+                        <td>@item.DueAmount.ToString("C")</td>
+                        <td>@item.LastPaymentDate?.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (item.Status == "1")
+                            {
+                                <span class="badge paid">Paid</span>
+                            }
+                            else if (item.Status == "2")
+                            {
+                                <span class="badge partial">Partial</span>
+                            }
+                            else
+                            {
+                                <span class="badge pending text-black">Pending</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6" class="no-data">No fee records found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
