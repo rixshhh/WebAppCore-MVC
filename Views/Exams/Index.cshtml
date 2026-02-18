@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ExamViewModel>
+
+@{
+    ViewData["Title"] = "Fees Details";
+}
+
+<h2 class="page-title">Fees Details</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-primary">
+        <tr>
+            <th>Subject ID</th>
+            <th>Exam Type</th>
+            <th>Exam Date</th>
+            <th>Max Marks</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.SubjectName</td>
+                    <td>@item.ExamType</td>
+                    <td>@item.ExamDate.ToString("dd-MMM-yyyy")</td>
+                    <td>@item.MaxMarks</td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="no-data">No fee records found.</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

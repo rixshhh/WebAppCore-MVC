@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ResultViewModel>
+
+@{
+    ViewData["Title"] = "Result Details";
+}
+
+<h2 class="page-title">Result Details</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle">
+        <thead class="table-primary">
+        <tr>
+            <th>Student Name</th>
+            <th>Subject Name</th>
+            <th>Marks Obtained</th>
+            <th>Maximum Marks</th>
+            <th>Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.StudentName</td>
+                    <td>@item.SubjectName</td>
+                    <td>@item.MarksObtained</td>
+                    <td>@item.MaxMarks</td>
+                    <td>@item.Grade</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="no-data">No result records found.</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

@@ -19,6 +19,8 @@ builder.Services
     .AddScoped<EnrollmentServices>()
     .AddScoped<FacultyServices>()
     .AddScoped<AttendenceServices>()
+    .AddScoped<ExamServices>()
+    .AddScoped<ResultServices>()
     .AddScoped<FeesServices>();
 
 

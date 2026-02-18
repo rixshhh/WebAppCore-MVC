@@ -22,6 +22,7 @@ public sealed class AppDbContext : DbContext
 
     public DbSet<Exams> Exams { get; set; }
     public DbSet<Fees> Fees { get; set; }
+    public DbSet<Results> Results { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
