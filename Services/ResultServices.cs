@@ -1,5 +1,7 @@
-﻿using WebApplication2.Data;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using WebApplication2.Data;
 using WebApplication2.Models;
+using Results = WebApplication2.Data.Results;
 
 namespace WebApplication2.Services;
 
@@ -42,5 +44,53 @@ public class ResultServices
             }).ToList();
 
         return results;
+    }
+
+    public List<SelectListItem> GetStudentList()
+    {
+        var studentList = _DbContext.Students
+            .Select(s => new SelectListItem
+            {
+                Value = s.StudentID.ToString(),
+                Text = s.FirstName + " " + s.LastName
+            }).ToList();
+
+        return studentList;
+    }
+
+    public List<SelectListItem> GetSubjectList()
+    {
+        var subjectList = (
+                from s in _DbContext.Subjects
+                join e in _DbContext.Exams
+                    on s.SubjectID equals e.SubjectID
+                select new
+                {
+                    e.ExamID,
+                    s.SubjectName
+                })
+                .Select(x => new SelectListItem
+                {
+                    Value = x.ExamID.ToString(),
+                    Text = x.SubjectName
+                }).ToList();
+
+        return subjectList;
+    }
+
+    public bool CreateResult(ResultViewModel model)
+    {
+        var result = new Results
+        {
+            StudentID = model.StudentID,
+            ExamID = model.ExamID,
+            MarksObtained = model.MarksObtained,
+            Grade = model.Grade
+        };
+
+        _DbContext.Results.Add(result);
+        _DbContext.SaveChanges();
+
+        return true;
     }
 }

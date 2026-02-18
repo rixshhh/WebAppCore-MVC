@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication2.Models;
 
@@ -18,4 +19,8 @@ public class ResultViewModel
     public string? SubjectName { get; set; }
 
     public int MaxMarks { get; set; }
+
+
+    public List<SelectListItem> StudentsList { get; set; }
+    public List<SelectListItem> SubjectsList { get; set; }
 }

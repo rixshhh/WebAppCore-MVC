@@ -4,7 +4,7 @@ namespace WebApplication2.Data;
 
 public class Results
 {
-    [Key] public required int ResultID { get; set; }
+    [Key] public int ResultID { get; set; }
 
     public required int StudentID { get; set; }
 
