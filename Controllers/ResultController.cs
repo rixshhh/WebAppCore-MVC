@@ -34,7 +34,7 @@ public class ResultController : Controller
     [HttpPost]
     public IActionResult Create(ResultViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (ModelState.IsValid) return View(model);
 
         var result = _resultServices.CreateResult(model);
 

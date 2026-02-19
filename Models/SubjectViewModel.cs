@@ -8,5 +8,6 @@ public class SubjectViewModel
     public required string SubjectName { get; set; }
     public required string SubjectCode { get; set; }
     public int CourseID { get; set; }
+    public string CourseName { get; set; } = string.Empty;
     public required byte Credits { get; set; }
 }

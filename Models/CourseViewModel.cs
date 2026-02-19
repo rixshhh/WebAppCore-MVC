@@ -9,5 +9,6 @@ public class CourseViewModel
     public required decimal TotalFees { get; set; }
 
     public DateTime CreatedAt { get; set; }
+
     public List<string> Subjects { get; set; } = new();
 }
