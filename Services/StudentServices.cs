@@ -39,7 +39,6 @@ public class StudentServices
     }
 
 
-
     public StudentsDTO? GetStudentById(int StudentID)
     {
         var student = _DbContext.Students.Find(StudentID);

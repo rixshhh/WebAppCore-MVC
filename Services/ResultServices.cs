@@ -69,11 +69,11 @@ public class ResultServices
                     e.ExamID,
                     s.SubjectName
                 })
-                .Select(x => new SelectListItem
-                {
-                    Value = x.ExamID.ToString(),
-                    Text = x.SubjectName
-                }).ToList();
+            .Select(x => new SelectListItem
+            {
+                Value = x.ExamID.ToString(),
+                Text = x.SubjectName
+            }).ToList();
 
         return subjectList;
     }

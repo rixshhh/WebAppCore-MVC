@@ -17,7 +17,7 @@
 
                     <form asp-action="Create" method="post">
 
-                        
+
                         <div class="mb-3">
                             <label asp-for="StudentID" class="form-label fw-semibold"></label>
                             <select asp-for="StudentID"
@@ -38,17 +38,17 @@
                             <span asp-validation-for="ExamID" class="text-danger"></span>
                         </div>
 
-                    
+
                         <div class="mb-3">
                             <label asp-for="MarksObtained" class="form-label fw-semibold"></label>
-                            <input asp-for="MarksObtained" class="form-control" />
+                            <input asp-for="MarksObtained" class="form-control"/>
                             <span asp-validation-for="MarksObtained" class="text-danger"></span>
                         </div>
 
                         <!-- Grade -->
                         <div class="mb-4">
                             <label asp-for="Grade" class="form-label fw-semibold"></label>
-                            <input asp-for="Grade" class="form-control" />
+                            <input asp-for="Grade" class="form-control"/>
                             <span asp-validation-for="Grade" class="text-danger"></span>
                         </div>
 
@@ -56,7 +56,7 @@
                             <a asp-action="Index" class="btn btn-outline-secondary">
                                 Cancel
                             </a>
-                            <button type="submit"  class="btn btn-primary px-4">
+                            <button type="submit" class="btn btn-primary px-4">
                                 Save Result
                             </button>
                         </div>
@@ -71,5 +71,5 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial"/>
 }
